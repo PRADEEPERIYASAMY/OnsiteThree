@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:id="@+id/relativelayout"
+    android:padding="5dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:weightSum="10"
+        android:id="@+id/profile">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/left"
+            android:padding="6dp"
+            android:id="@+id/icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:id="@+id/name"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:text="ggggggggggggggggggggggg"
+            android:textColor="@android:color/black"
+            android:paddingRight="10dp"
+            android:layout_toEndOf="@id/icon"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/icon" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_below="@id/profile"
+        android:id="@+id/info">
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/size"
+            android:text="1 item"
+            android:textSize="8sp"
+            android:paddingLeft="5dp"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/size"
+            android:id="@+id/date"
+            android:text="13/4/4444 9:30 am"
+            android:textSize="8sp"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_recycler"
+        android:layout_below="@id/info"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:nestedScrollingEnabled="false" />
+</RelativeLayout>
