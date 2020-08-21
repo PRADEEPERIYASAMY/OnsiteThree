@@ -1,13 +1,18 @@
 package com.example.onsitethree;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -16,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar indexProgress;
     private CountDownTimer countDownTimer ;
     private int count = 0;
+    private static final int CODE = 1000;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -42,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView ( R.layout.activity_main );
+
+        if (ContextCompat.checkSelfPermission ( getApplicationContext (), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions ( MainActivity.this ,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},CODE );
+        }
 
         initialization();
 
@@ -64,6 +75,23 @@ public class MainActivity extends AppCompatActivity {
 
         countDownTimer.start ();
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[]
+            permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case CODE:
+                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText ( getApplicationContext (),"Permission granted",Toast.LENGTH_SHORT ).show ();
+                    }
+                }
+                break;
+        }
     }
 
     private void initialization() {

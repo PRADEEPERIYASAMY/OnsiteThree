@@ -42,7 +42,6 @@ public class MainActivity2 extends AppCompatActivity {
     private Button storage;
     private List<Model> filesList = new ArrayList<> (  );
     private RecyclerView fileRecycler;
-    private static final int CODE = 1000;
     private MediaPlayer mediaPlayer1,mediaPlayer2;
     private static String used;
 
@@ -72,9 +71,7 @@ public class MainActivity2 extends AppCompatActivity {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        if (ContextCompat.checkSelfPermission ( getApplicationContext (), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
-            ActivityCompat.requestPermissions ( MainActivity2.this ,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},CODE );
-        }
+
 
         File root = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         ListDir(root);
@@ -175,24 +172,6 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[]
-            permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-            case CODE:
-                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText ( getApplicationContext (),"Permission granted",Toast.LENGTH_SHORT ).show ();
-                    }
-                }
-                break;
-        }
-    }
 
     private int getAvailableSizeInPercent() {
         File path = Environment.getDataDirectory();
