@@ -118,7 +118,7 @@ public class MainActivity2 extends AppCompatActivity {
         if (files != null){
             filesList.clear();
             for (File file: files){
-                SimpleDateFormat currentDate = new SimpleDateFormat("mm/dd/yyyy");
+                SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
                 String date = currentDate.format(file.lastModified ());
                 SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
                 String time = currentTime.format(file.lastModified ());
