@@ -58,6 +58,6 @@
         android:layout_below="@id/info"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:visibility="gone"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        />
 </RelativeLayout>

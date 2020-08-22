@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.onsitethree.Adapter.FileAdapter;
-import com.example.onsitethree.StorageData.Model;
+import com.example.onsitethree.StorageData.DataModel;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -40,7 +40,7 @@ import java.util.List;
 public class MainActivity2 extends AppCompatActivity {
 
     private Button storage;
-    private List<Model> filesList = new ArrayList<> (  );
+    private List<DataModel> filesList = new ArrayList<> (  );
     private RecyclerView fileRecycler;
     private MediaPlayer mediaPlayer1,mediaPlayer2;
     private static String used;
@@ -122,50 +122,50 @@ public class MainActivity2 extends AppCompatActivity {
                 String date = currentDate.format(file.lastModified ());
                 SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
                 String time = currentTime.format(file.lastModified ());
-                Model model = new Model ();
-                model.setName ( file.getName () );
-                model.setPath ( file.getAbsolutePath () );
+                DataModel DataModel = new DataModel ();
+                DataModel.setName ( file.getName () );
+                DataModel.setPath ( file.getAbsolutePath () );
                 if (file.getName ().endsWith ( ".gif" ) || file.getName ().endsWith ( ".tif" ) ||file.getName ().endsWith ( ".tiff" ) ||file.getName ().endsWith ( ".png" ) ||file.getName ().endsWith ( ".jpg" ) ||file.getName ().endsWith ( ".jpeg" ) ||file.getName ().endsWith ( ".bmp" ) ||file.getName ().endsWith ( ".esp" ) ||file.getName ().endsWith ( ".raw" ) ||file.getName ().endsWith ( ".cr2" ) ||file.getName ().endsWith ( ".nef" ) ||file.getName ().endsWith ( ".orf" ) ||file.getName ().endsWith ( ".sr2" ) ){
-                    model.setType ( "image" );
+                    DataModel.setType ( "image" );
                 }
                 else if (file.getName ().endsWith ( ".pdf" )){
-                    model.setType ( "pdf" );
+                    DataModel.setType ( "pdf" );
                 }
                 else if (file.getName ().endsWith ( ".ppt" ) || file.getName ().endsWith ( ".pptx" )){
-                    model.setType ( "ppt" );
+                    DataModel.setType ( "ppt" );
                 }
                 else if (file.isDirectory ()){
-                    model.setType ( "dir" );
+                    DataModel.setType ( "dir" );
                 }
                 else if (file.getName ().endsWith ( ".mkv" ) ||file.getName ().endsWith ( ".mp4" ) ||file.getName ().endsWith ( ".m4p" ) ||file.getName ().endsWith ( ".mpg" ) ||file.getName ().endsWith ( ".mpeg" ) ||file.getName ().endsWith ( ".3gp" ) ||file.getName ().endsWith ( ".mpe" ) ||file.getName ().endsWith ( ".mpv" ) ||file.getName ().endsWith ( ".mp2" ) ||file.getName ().endsWith ( ".amv" ) ||file.getName ().endsWith ( ".asf" )){
-                    model.setType ( "video" );
+                    DataModel.setType ( "video" );
                 }
                 else if (file.getName ().endsWith ( ".mp3" ) ||file.getName ().endsWith ( ".acc" ) ||file.getName ().endsWith ( ".ogg" ) ||file.getName ().endsWith ( ".wav" ) ||file.getName ().endsWith ( ".webm" )){
-                    model.setType ( "audio" );
+                    DataModel.setType ( "audio" );
                 }
                 else if (file.getName ().endsWith ( ".docx" )){
-                    model.setType ( "docx" );
+                    DataModel.setType ( "docx" );
                 }
                 else if (file.getName ().endsWith ( ".apk" )){
-                    model.setType ( "apk" );
+                    DataModel.setType ( "apk" );
                 }
                 else {
-                    model.setType ( "null" );
+                    DataModel.setType ( "null" );
                 }
                 try {
                     if (String.valueOf ( file.listFiles ().length ) == "null"){
 
                     }
                     else {
-                        model.setItems ( String.valueOf ( file.listFiles ().length ) ) ;
+                        DataModel.setItems ( String.valueOf ( file.listFiles ().length ) ) ;
                     }
                 }
                 catch (NullPointerException e){
-                    model.setItems ( String.valueOf ( 0) ) ;
+                    DataModel.setItems ( String.valueOf ( 0) ) ;
                 }
-                model.setDate ( date+"  "+time );
-                model.setClicked ( false );
-                filesList.add(model);
+                DataModel.setDate ( date+"  "+time );
+                DataModel.setClicked ( false );
+                filesList.add(DataModel);
             }
         }
 
@@ -207,12 +207,7 @@ public class MainActivity2 extends AppCompatActivity {
         }
         used = String.valueOf (getAvailableSizeInPercent ()*size);
         StringBuilder stringBuilder = new StringBuilder(Long.toString(size));
-        /*int offset = stringBuilder.length() - 3;
-        while (offset > 0) {
-            stringBuilder.insert(offset, ',');
-            offset -= 3;
-        }*/
-
+        
         if (suffix != null) {
             stringBuilder.append(suffix);
             used = used+suffix;

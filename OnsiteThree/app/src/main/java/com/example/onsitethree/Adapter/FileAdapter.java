@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onsitethree.MainActivity2;
 import com.example.onsitethree.R;
-import com.example.onsitethree.StorageData.Model;
+import com.example.onsitethree.StorageData.DataModel;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -26,11 +26,11 @@ import java.util.List;
 
 public class FileAdapter extends RecyclerView.Adapter<FileAdapter.MyViewHolder> {
 
-    private List<Model> fileModel;
+    private List<DataModel> fileDataModel;
     private static int count = 1;
 
-    public FileAdapter( List<Model> fileModel ) {
-        this.fileModel = fileModel;
+    public FileAdapter( List<DataModel> fileDataModel ) {
+        this.fileDataModel = fileDataModel;
     }
 
     @NonNull
@@ -42,31 +42,31 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder( @NonNull FileAdapter.MyViewHolder holder , int position ) {
-        holder.name.setText ( fileModel.get ( position ).getName () );
-        holder.size.setText ( fileModel.get ( position ).getItems ()+" items" );
-        holder.date.setText ( fileModel.get ( position ).getDate () );
-        if (fileModel.get ( position ).getType ().equals ( "image" )){
+        holder.name.setText ( fileDataModel.get ( position ).getName () );
+        holder.size.setText ( fileDataModel.get ( position ).getItems ()+" items" );
+        holder.date.setText ( fileDataModel.get ( position ).getDate () );
+        if (fileDataModel.get ( position ).getType ().equals ( "image" )){
             holder.icon.setImageResource ( R.drawable.image );
         }
-        else if (fileModel.get ( position ).getType ().equals ( "pdf" )){
+        else if (fileDataModel.get ( position ).getType ().equals ( "pdf" )){
             holder.icon.setImageResource ( R.drawable.pdf );
         }
-        else if (fileModel.get ( position ).getType ().equals ( "ppt" )){
+        else if (fileDataModel.get ( position ).getType ().equals ( "ppt" )){
             holder.icon.setImageResource ( R.drawable.ppt );
         }
-        else if (fileModel.get ( position ).getType ().equals ( "video" )){
+        else if (fileDataModel.get ( position ).getType ().equals ( "video" )){
             holder.icon.setImageResource ( R.drawable.video );
         }
-        else if (fileModel.get ( position ).getType ().equals ( "audio" )){
+        else if (fileDataModel.get ( position ).getType ().equals ( "audio" )){
             holder.icon.setImageResource ( R.drawable.music );
         }
-        else if (fileModel.get ( position ).getType ().equals ( "docx" )){
+        else if (fileDataModel.get ( position ).getType ().equals ( "docx" )){
             holder.icon.setImageResource ( R.drawable.doccument );
         }
-        else if (fileModel.get ( position ).getType ().equals ( "dir" )){
+        else if (fileDataModel.get ( position ).getType ().equals ( "dir" )){
             holder.icon.setImageResource ( R.drawable.left );
         }
-        else if (fileModel.get ( position ).getType ().equals ( "apk" )){
+        else if (fileDataModel.get ( position ).getType ().equals ( "apk" )){
             holder.icon.setImageResource ( R.drawable.apk );
         }
         else {
@@ -101,14 +101,19 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return fileModel.size ();
+        return fileDataModel.size ();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name,size,date;
         RecyclerView recyclerView ;
-        private List<Model> filesList = new ArrayList<> (  );
+        private List<DataModel> filesList = new ArrayList<> (  );
         ImageView icon;
         RelativeLayout relativeLayout;
 
@@ -126,76 +131,76 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.MyViewHolder> 
                 @Override
                 public void onClick( View v ) {
 
-                    if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "image" )){
+                    if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "image" )){
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
-                        File viewer = new File(fileModel.get ( getLayoutPosition () ).getPath ());
+                        File viewer = new File(fileDataModel.get ( getLayoutPosition () ).getPath ());
                         intent.setDataAndType( Uri.fromFile(viewer), "image/*");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         itemView.getContext ().startActivity(intent);
                     }
-                    else if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "pdf" )){
+                    else if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "pdf" )){
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
-                        File viewer = new File(fileModel.get ( getLayoutPosition () ).getPath ());
+                        File viewer = new File(fileDataModel.get ( getLayoutPosition () ).getPath ());
                         intent.setDataAndType( Uri.fromFile(viewer), "application/pdf");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         itemView.getContext ().startActivity(intent);
                     }
-                    else if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "ppt" )){
+                    else if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "ppt" )){
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
-                        File viewer = new File(fileModel.get ( getLayoutPosition () ).getPath ());
+                        File viewer = new File(fileDataModel.get ( getLayoutPosition () ).getPath ());
                         intent.setDataAndType( Uri.fromFile(viewer), "application/vnd.ms-powerpoint");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         itemView.getContext ().startActivity(intent);
                     }
-                    else if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "video" )){
+                    else if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "video" )){
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
-                        File viewer = new File(fileModel.get ( getLayoutPosition () ).getPath ());
+                        File viewer = new File(fileDataModel.get ( getLayoutPosition () ).getPath ());
                         intent.setDataAndType( Uri.fromFile(viewer), "video/*");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         itemView.getContext ().startActivity(intent);
                     }
-                    else if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "audio" )){
+                    else if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "audio" )){
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
-                        File viewer = new File(fileModel.get ( getLayoutPosition () ).getPath ());
+                        File viewer = new File(fileDataModel.get ( getLayoutPosition () ).getPath ());
                         intent.setDataAndType( Uri.fromFile(viewer), "audio/*");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         itemView.getContext ().startActivity(intent);
                     }
-                    else if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "docx" )){
+                    else if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "docx" )){
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
-                        File viewer = new File(fileModel.get ( getLayoutPosition () ).getPath ());
+                        File viewer = new File(fileDataModel.get ( getLayoutPosition () ).getPath ());
                         intent.setDataAndType( Uri.fromFile(viewer), "application/msword");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         itemView.getContext ().startActivity(intent);
                     }
-                    else if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "dir" )){
-                        File sub = new File ( fileModel.get ( getAdapterPosition () ).getPath () );
-                        if (sub.isDirectory () && !fileModel.get ( getAdapterPosition () ).getClicked ()){
+                    else if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "dir" )){
+                        File sub = new File ( fileDataModel.get ( getAdapterPosition () ).getPath () );
+                        if (sub.isDirectory () && !fileDataModel.get ( getAdapterPosition () ).getClicked ()){
                             ListDir ( sub );
-                            fileModel.get ( getAdapterPosition () ).setClicked ( true );
+                            fileDataModel.get ( getAdapterPosition () ).setClicked ( true );
                             recyclerView.setLayoutManager ( new LinearLayoutManager ( itemView.getContext () ) );
                             recyclerView.setHasFixedSize ( true );
                             recyclerView.setAdapter ( new FileAdapter ( filesList ) );
                             recyclerView.setVisibility ( View.VISIBLE );
-                            if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "dir" )){
+                            if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "dir" )){
                                 icon.setImageResource ( R.drawable.down );
                             }
                         }
-                        else if (fileModel.get ( getAdapterPosition () ).getClicked ()){
+                        else if (fileDataModel.get ( getAdapterPosition () ).getClicked ()){
                             recyclerView.setVisibility ( View.GONE );
-                            fileModel.get ( getAdapterPosition () ).setClicked ( false );
-                            if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "dir" )){
+                            fileDataModel.get ( getAdapterPosition () ).setClicked ( false );
+                            if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "dir" )){
                                 icon.setImageResource ( R.drawable.left );
                             }
                         }
                     }
-                    else if (fileModel.get ( getAdapterPosition () ).getType ().equals ( "apk" )){
+                    else if (fileDataModel.get ( getAdapterPosition () ).getType ().equals ( "apk" )){
                         Toast.makeText ( itemView.getContext (),"Its a apk file",Toast.LENGTH_SHORT ).show ();
                     }
                     else {
@@ -216,50 +221,50 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.MyViewHolder> 
                     String date = currentDate.format(file.lastModified ());
                     SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
                     String time = currentTime.format(file.lastModified ());
-                    Model model = new Model ();
-                    model.setName ( file.getName () );
-                    model.setPath ( file.getAbsolutePath () );
+                    DataModel DataModel = new DataModel ();
+                    DataModel.setName ( file.getName () );
+                    DataModel.setPath ( file.getAbsolutePath () );
                     if (file.getName ().endsWith ( ".gif" ) || file.getName ().endsWith ( ".tif" ) ||file.getName ().endsWith ( ".tiff" ) ||file.getName ().endsWith ( ".png" ) ||file.getName ().endsWith ( ".jpg" ) ||file.getName ().endsWith ( ".jpeg" ) ||file.getName ().endsWith ( ".bmp" ) ||file.getName ().endsWith ( ".esp" ) ||file.getName ().endsWith ( ".raw" ) ||file.getName ().endsWith ( ".cr2" ) ||file.getName ().endsWith ( ".nef" ) ||file.getName ().endsWith ( ".orf" ) ||file.getName ().endsWith ( ".sr2" ) ){
-                        model.setType ( "image" );
+                        DataModel.setType ( "image" );
                     }
                     else if (file.getName ().endsWith ( ".pdf" )){
-                        model.setType ( "pdf" );
+                        DataModel.setType ( "pdf" );
                     }
                     else if (file.getName ().endsWith ( ".ppt" ) || file.getName ().endsWith ( ".pptx" )){
-                        model.setType ( "ppt" );
+                        DataModel.setType ( "ppt" );
                     }
                     else if (file.isDirectory ()){
-                        model.setType ( "dir" );
+                        DataModel.setType ( "dir" );
                     }
                     else if (file.getName ().endsWith ( ".mkv" ) ||file.getName ().endsWith ( ".mp4" ) ||file.getName ().endsWith ( ".m4p" ) ||file.getName ().endsWith ( ".mpg" ) ||file.getName ().endsWith ( ".mpeg" ) ||file.getName ().endsWith ( ".3gp" ) ||file.getName ().endsWith ( ".mpe" ) ||file.getName ().endsWith ( ".mpv" ) ||file.getName ().endsWith ( ".mp2" ) ||file.getName ().endsWith ( ".amv" ) ||file.getName ().endsWith ( ".asf" )){
-                        model.setType ( "video" );
+                        DataModel.setType ( "video" );
                     }
                     else if (file.getName ().endsWith ( ".mp3" ) ||file.getName ().endsWith ( ".acc" ) ||file.getName ().endsWith ( ".ogg" ) ||file.getName ().endsWith ( ".wav" ) ||file.getName ().endsWith ( ".webm" )){
-                        model.setType ( "audio" );
+                        DataModel.setType ( "audio" );
                     }
                     else if (file.getName ().endsWith ( ".docx" )){
-                        model.setType ( "docx" );
+                        DataModel.setType ( "docx" );
                     }
                     else if (file.getName ().endsWith ( ".apk" )){
-                        model.setType ( "apk" );
+                        DataModel.setType ( "apk" );
                     }
                     else {
-                        model.setType ( "null" );
+                        DataModel.setType ( "null" );
                     }
                     try {
                         if (String.valueOf ( file.listFiles ().length ) == "null"){
-                            model.setItems ( String.valueOf ( 0) ) ;
+                            DataModel.setItems ( String.valueOf ( 0) ) ;
                         }
                         else {
-                            model.setItems ( String.valueOf ( file.listFiles ().length ) ) ;
+                            DataModel.setItems ( String.valueOf ( file.listFiles ().length ) ) ;
                         }
                     }
                     catch (NullPointerException e){
-                        model.setItems ( String.valueOf ( 0) ) ;
+                        DataModel.setItems ( String.valueOf ( 0) ) ;
                     }
-                    model.setDate ( date+"  "+time );
-                    model.setClicked ( false );
-                    filesList.add(model);
+                    DataModel.setDate ( date+"  "+time );
+                    DataModel.setClicked ( false );
+                    filesList.add(DataModel);
                 }
             }
 

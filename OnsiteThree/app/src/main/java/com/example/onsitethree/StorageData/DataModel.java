@@ -1,6 +1,6 @@
 package com.example.onsitethree.StorageData;
 
-public class Model {
+public class DataModel {
     private String name;
     private String path;
     private Boolean clicked;
